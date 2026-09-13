@@ -1,0 +1,16 @@
+name: GitHub Actions 对比测试 (海外出口)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 运行探针测试
+        run: |
+          chmod +x ./test-probe.sh
+          ./test-probe.sh

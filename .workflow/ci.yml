@@ -1,0 +1,12 @@
+name: 暴风资源大陆穿透实测
+version: '1.0'
+stages:
+  - stage:
+      name: 连通性测试
+      steps:
+        - step: execute-script@1
+          name: 请求暴风被封锁片源
+          inputs:
+            script: |
+              chmod +x ./test-probe.sh
+              ./test-probe.sh
