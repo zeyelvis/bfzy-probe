@@ -22,6 +22,19 @@ if [ "$HTTP_STATUS1" = "200" ]; then
     echo "🎉【大获全胜】暴风资源对中国大陆构建机完全放行！200 OK！"
     echo "M3U8 清单内容前 20 行预览:"
     head -n 20 /tmp/resp1.txt
+
+    echo ""
+    echo "🔍 [专项深潜] 测试第一个视频切片 0000000.ts 是否放行..."
+    TS_URL="https://c1.rrcdnbf2.com/video/haizeiwang/%E7%AC%AC001%E9%9B%86/0000000.ts"
+    TS_STATUS=$(curl -s -o /tmp/resp_ts.bin -w "%{http_code}" --connect-timeout 10 "$TS_URL" || true)
+    TS_SIZE=$(wc -c < /tmp/resp_ts.bin | tr -d ' ')
+    echo "TS 切片地址: $TS_URL"
+    echo "TS HTTP 状态码: $TS_STATUS, 文件大小: $TS_SIZE 字节"
+    if [ "$TS_STATUS" = "200" ]; then
+        echo "🚀【突破极限】连视频切片 .ts 也完全放行 200 OK！"
+    else
+        echo "⚠️ TS 切片受阻，状态码: $TS_STATUS"
+    fi
 else
     echo "⚠️ 返回状态码非 200，内容预览:"
     head -n 25 /tmp/resp1.txt
