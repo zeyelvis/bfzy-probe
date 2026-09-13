@@ -1,4 +1,4 @@
-name: GitHub Actions 4节点并发探针实测
+name: 暴风资源白名单盲区批量探测
 
 on:
   workflow_dispatch:
@@ -6,16 +6,16 @@ on:
     branches: [ main ]
 
 jobs:
-  multi-probe:
-    name: 探针节点 ${{ matrix.node }}
+  scan:
+    name: 扫描节点 ${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        node: [1, 2, 3, 4]
+        node: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     steps:
       - uses: actions/checkout@v4
-      - name: 运行探针测试
+      - name: 执行白名单探活
         run: |
           chmod +x ./test-probe.sh
           ./test-probe.sh
