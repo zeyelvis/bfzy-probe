@@ -1,4 +1,4 @@
-name: GitHub Actions 对比测试 (海外出口)
+name: GitHub Actions 4节点并发探针实测
 
 on:
   workflow_dispatch:
@@ -6,8 +6,13 @@ on:
     branches: [ main ]
 
 jobs:
-  probe:
+  multi-probe:
+    name: 探针节点 ${{ matrix.node }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
       - name: 运行探针测试
